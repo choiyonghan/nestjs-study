@@ -1,0 +1,23 @@
+<table>
+    <tr>
+        <th>성</th>
+        <td>이름</td>
+        <td>사용여부</td>
+        <td>가입일</td>
+        <td style="border-style: solid; border: 1px;"><a href="/user/save">저장</a></td>
+    </tr>
+    {{#each users}}
+    <tr>
+        <td> {{ firstName }}</td>
+        <td> {{ lastName }}</td>
+        <td> {{ isActive}} </td>
+        <td> {{ createdAt}} </td>
+        <td><a href="/user/{{id}}/edit">수정</a></td>
+        <td>
+            <form method="post" action="/user/{{id}}?_method=DELETE">
+                <button type="submit">삭제</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>
