@@ -42,7 +42,7 @@
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ genderToString }}</td>
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ phoneToString }}</td>
                         <td class="py-3 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
-                            <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="document.location.href = '/trainer/edit/{{ id }}';">View Detail</button>
+                            <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="document.location.href = '/trainer/edit/{{ id }}';">Edit</button>
                         </td>
                         <td class="py-3 whitespace-no-wrap text-center border-b border-gray-500 text-sm leading-5">
                             <form method="post" action="/trainer/{{id}}?_method=DELETE">
@@ -84,3 +84,4 @@
         </div>
     </div>
 </main>
+{{> js/common.js }}

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entity/user.entity';
 import { Repository } from 'typeorm';
@@ -13,16 +13,30 @@ export class UserService {
   ) {}
 
   async search(dto: SearchUser) {
-    return this.userRepository.findAndCount({
+    const result = this.userRepository.findAndCount({
       relations: ['trainer'],
       take: 10,
       skip: (dto.page - 1) * 10,
       order: { id: 'DESC' },
     });
+
+    if (!result) {
+      throw new NotFoundException();
+    }
+
+    return result;
   }
 
   async getDetail(id: number) {
-    return this.userRepository.findOne({ where: { id } });
+    const result = this.userRepository.findOne({
+      relations: ['trainer'],
+      where: { id },
+    });
+    if (!result) {
+      throw new NotFoundException();
+    }
+
+    return result;
   }
 
   async save(dto: InsertUser) {
@@ -46,10 +60,11 @@ export class UserService {
   }
 
   async delete(id: number) {
-    this.userRepository.delete(id);
+    const user = await this.getDetail(id);
+    this.userRepository.delete(user.id);
   }
 
   async update(dto: UpdateUser) {
-    return this.userRepository.update(dto.id, dto);
+    this.userRepository.update(dto.id, dto);
   }
 }

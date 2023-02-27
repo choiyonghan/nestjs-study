@@ -45,6 +45,7 @@ export class UserController {
 
   @Post()
   @Redirect('/user')
+  @UsePipes(ValidationPipe)
   async save(@Body() dto: InsertUserDto) {
     await this.userService.save(dto);
   }
@@ -64,8 +65,17 @@ export class UserController {
     };
   }
 
+  @Get('detail/:id')
+  @Render('user/detail')
+  async detailView(@Param('id') id: number) {
+    return {
+      user: await this.userService.getDetail(id),
+    };
+  }
+
   @Put(':id')
   @Redirect('/user')
+  @UsePipes(ValidationPipe)
   async update(@Param('id') id: number, @Body() dto: UpdateUserDto) {
     await this.userService.update({
       id,

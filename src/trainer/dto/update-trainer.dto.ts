@@ -14,11 +14,9 @@ export class UpdateTrainerDto {
   joinDate: string;
 
   @IsNotEmpty()
-  @IsNumber()
   height: number;
 
   @IsNotEmpty()
-  @IsNumber()
   weight: number;
 
   @IsNotEmpty()
@@ -26,7 +24,6 @@ export class UpdateTrainerDto {
   gender: string;
 
   @IsNotEmpty()
-  @IsNumber()
   phone: number;
 
   @IsNotEmpty()

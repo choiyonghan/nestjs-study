@@ -41,6 +41,7 @@ export class TrainerController {
 
   @Post()
   @Redirect('/trainer')
+  @UsePipes(ValidationPipe)
   async save(@Body() dto: InsertTrainerDto) {
     await this.trainerService.save(dto);
   }
@@ -61,6 +62,7 @@ export class TrainerController {
 
   @Put(':id')
   @Redirect('/trainer')
+  @UsePipes(ValidationPipe)
   async update(@Param('id') id: number, @Body() dto: UpdateTrainerDto) {
     await this.trainerService.update({
       id,

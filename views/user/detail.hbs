@@ -3,9 +3,8 @@
         <div class="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-3 overflow-hidden bg-white shadow-lg px-12">
             <div class="flex justify-between">
                 <div class="py-3 text-left text-2xl font-bold leading-4 text-blue-500">
-                    Member List
+                    {{user.fullName}} 상세 정보
                 </div>
-                <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="location.href = '/user/empty';">등록</button>
             </div>
         </div>
         <div class="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
@@ -26,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white">
-                {{#each users}}
+                {{#user}}
                     <tr>
                         <td class="px-6 py-3 whitespace-no-wrap border-b border-gray-500">
                             <div class="flex items-center">
@@ -43,47 +42,48 @@
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ address }}</td>
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ phoneToString }}</td>
                         <td class="px-6 py-3 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">{{ trainer.adminName }} </td>
-                        <td class="py-3 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
-                            <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="document.location.href = '/user/edit/{{ id }}';">Edit</button>
-                        </td>
-                        <td class="py-3 whitespace-no-wrap text-center border-b border-gray-500 text-sm leading-5">
-                            <form method="post" action="/user/{{id}}?_method=DELETE">
-                                <button type="submit" class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">Delete</button>
-                            </form>
-                        </td>
                     </tr>
-                {{/each}}
+                {{/user}}
                 </tbody>
             </table>
-            <div class="sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans">
-                <div>
-                    <p class="text-sm leading-5 text-blue-700">
-                        Showing
-                        <span class="font-medium">{{ currentPage }}</span>
-                        to
-                        <span class="font-medium" id="totalPage"></span>
-                        of
-                        <span class="font-medium">{{ total }}</span>
-                        results
-                    </p>
-                </div>
-                <div>
-                    <nav class="relative z-0 inline-flex shadow-sm">
-                        <div>
-                            <a href="/user?page=1" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-700 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
-                                1
-                            </a>
-                            <a href="/user?page=2" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
-                                2
-                            </a>
-                            <a href="/user?page=3" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
-                                3
-                            </a>
-                        </div>
-                    </nav>
-                </div>
-            </div>
+            <table class="my-10 min-w-full">
+                <thead>
+                <tr>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">No</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">이름</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">생년월일</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">키</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">몸무게</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">성별</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">주소</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">핸드폰번호</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">담당트레이너</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300"></th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300"></th>
+                </tr>
+                </thead>
+                <tbody class="bg-white">
+                {{#user}}
+                    <tr>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b border-gray-500">
+                            <div class="flex items-center">
+                                <div>
+                                    <div class="text-sm leading-5 text-gray-800">{{ id }}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5"><a href="/user/detail/{{ id }}">{{ fullName }}</a></td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ birthdayToString }}</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ height }}cm</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ weight }}kg</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ genderToString }}</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ address }}</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ phoneToString }}</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">{{ trainer.adminName }} </td>
+                    </tr>
+                {{/user}}
+                </tbody>
+            </table>
         </div>
     </div>
 </main>
-{{> js/common.js }}

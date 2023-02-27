@@ -14,11 +14,9 @@ export class UpdateUserDto {
   birthday: string;
 
   @IsNotEmpty()
-  @IsNumber()
   height: number;
 
   @IsNotEmpty()
-  @IsNumber()
   weight: number;
 
   @IsNotEmpty()
@@ -30,7 +28,6 @@ export class UpdateUserDto {
   address: string;
 
   @IsNotEmpty()
-  @IsNumber()
   phone: number;
 
   @IsString()
