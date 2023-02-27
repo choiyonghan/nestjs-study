@@ -1,17 +1,17 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class UpdateUserDto {
+export class InsertTrainerDto {
   @IsNotEmpty()
   @IsString()
-  firstName: string;
+  adminId: string;
 
   @IsNotEmpty()
   @IsString()
-  lastName: string;
+  adminName: string;
 
   @IsNotEmpty()
   @IsString()
-  birthday: string;
+  joinDate: string;
 
   @IsNotEmpty()
   @IsNumber()
@@ -26,15 +26,8 @@ export class UpdateUserDto {
   gender: string;
 
   @IsNotEmpty()
-  @IsString()
-  address: string;
-
-  @IsNotEmpty()
   @IsNumber()
   phone: number;
-
-  @IsString()
-  adminId?: string;
 
   @IsNotEmpty()
   @IsString()

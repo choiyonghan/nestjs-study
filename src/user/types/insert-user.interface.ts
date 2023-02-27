@@ -1,8 +1,7 @@
-export interface UpdateUser {
-  id: number;
+export interface InsertUser {
   firstName: string;
   lastName: string;
-  birthday: number;
+  birthday: string;
   height: number;
   weight: number;
   gender: string;

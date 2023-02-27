@@ -1,3 +1,3 @@
 export class SearchUserDto {
-  limit: number;
+  page = 1;
 }

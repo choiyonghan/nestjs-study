@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+{{> header }}
+<body>
+<div>
+    {{> nav }}
+    <div class="flex overflow-hidden bg-white pt-16">
+        {{> sidebar }}
+        <div id="main-content" class="h-full w-full bg-gray-50 relative overflow-y-auto lg:ml-64">
+            {{{ body }}}
+            {{>footer }}
+        </div>
+    </div>
+</div>
+{{> js/common.js }}
+</body>
+</html>

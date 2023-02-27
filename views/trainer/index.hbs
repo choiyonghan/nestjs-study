@@ -3,9 +3,9 @@
         <div class="align-middle rounded-tl-lg rounded-tr-lg inline-block w-full py-3 overflow-hidden bg-white shadow-lg px-12">
             <div class="flex justify-between">
                 <div class="py-3 text-left text-2xl font-bold leading-4 text-blue-500">
-                    Member List
+                    Trainer List
                 </div>
-                <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="location.href = '/user/empty';">등록</button>
+                <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="location.href = '/trainer/empty';">등록</button>
             </div>
         </div>
         <div class="align-middle inline-block min-w-full shadow overflow-hidden bg-white shadow-dashboard px-8 pt-3 rounded-bl-lg rounded-br-lg">
@@ -13,20 +13,19 @@
                 <thead>
                 <tr>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left leading-4 text-blue-500 tracking-wider">No</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">아이디</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">이름</th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">생년월일</th>
+                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">입사일자</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">키</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">몸무게</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">성별</th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">주소</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">핸드폰번호</th>
-                    <th class="px-6 py-3 border-b-2 border-gray-300 text-left text-sm leading-4 text-blue-500 tracking-wider">담당트레이너</th>
                     <th class="px-6 py-3 border-b-2 border-gray-300"></th>
                     <th class="px-6 py-3 border-b-2 border-gray-300"></th>
                 </tr>
                 </thead>
                 <tbody class="bg-white">
-                {{#each users}}
+                {{#each trainers}}
                     <tr>
                         <td class="px-6 py-3 whitespace-no-wrap border-b border-gray-500">
                             <div class="flex items-center">
@@ -35,19 +34,18 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ fullName }}</td>
-                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ birthdayToString }}</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ adminId }}</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ adminName }}</td>
+                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ joinDateToString }}</td>
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ height }}cm</td>
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ weight }}kg</td>
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ genderToString }}</td>
-                        <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ address }}</td>
                         <td class="px-6 py-3 whitespace-no-wrap border-b text-blue-900 border-gray-500 text-sm leading-5">{{ phoneToString }}</td>
-                        <td class="px-6 py-3 whitespace-no-wrap border-b border-gray-500 text-blue-900 text-sm leading-5">{{ trainer.adminName }} </td>
                         <td class="py-3 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
-                            <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="document.location.href = '/user/edit/{{ id }}';">View Detail</button>
+                            <button class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none" onclick="document.location.href = '/trainer/edit/{{ id }}';">View Detail</button>
                         </td>
                         <td class="py-3 whitespace-no-wrap text-center border-b border-gray-500 text-sm leading-5">
-                            <form method="post" action="/user/{{id}}?_method=DELETE">
+                            <form method="post" action="/trainer/{{id}}?_method=DELETE">
                                 <button type="submit" class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">Delete</button>
                             </form>
                         </td>
@@ -70,13 +68,13 @@
                 <div>
                     <nav class="relative z-0 inline-flex shadow-sm">
                         <div>
-                            <a href="/user?page=1" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-700 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
+                            <a href="/trainer?page=1" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-700 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
                                 1
                             </a>
-                            <a href="/user?page=2" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
+                            <a href="/trainer?page=2" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
                                 2
                             </a>
-                            <a href="/user?page=3" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
+                            <a href="/trainer?page=3" class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm leading-5 font-medium text-blue-600 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-tertiary active:text-gray-700 transition ease-in-out duration-150 hover:bg-tertiary">
                                 3
                             </a>
                         </div>

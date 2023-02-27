@@ -9,41 +9,59 @@ import {
   Query,
   Redirect,
   Render,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from './entity/user.entity';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { SearchUserDto } from './dto/search-user.dto';
 import { UserService } from './user.service';
+import { InsertUserDto } from './dto/insert-user.dto';
+import { TrainerService } from '../trainer/trainer.service';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
   constructor(
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
-
     private userService: UserService,
+    private trainerService: TrainerService,
   ) {}
 
   @Get()
   @Render('user/index')
+  @UsePipes(ValidationPipe)
   async index(@Query() dto: SearchUserDto) {
+    const [result, total] = await this.userService.search(dto);
     return {
-      users: await this.userRepository.find({ take: dto.limit }),
+      users: result,
+      total: total,
+      currentPage: dto.page,
     };
   }
 
-  @Get(':id/edit')
-  @Render('user/edit')
-  async editView(@Param('id') id: number) {
-    return { user: await this.userRepository.findOne({ where: { id } }) };
+  @Get('/empty')
+  @Render('user/save')
+  async getInitDetail() {
+    return { trainers: await this.trainerService.findAll() };
   }
 
-  @Get('/save')
-  @Render('user/save')
-  async saveView() {
-    return;
+  @Post()
+  @Redirect('/user')
+  async save(@Body() dto: InsertUserDto) {
+    await this.userService.save(dto);
+  }
+
+  @Delete(':id')
+  @Redirect('/user')
+  async delete(@Param('id') id: number) {
+    await this.userService.delete(id);
+  }
+
+  @Get('edit/:id')
+  @Render('user/edit')
+  async editView(@Param('id') id: number) {
+    return {
+      user: await this.userService.getDetail(id),
+      trainers: await this.trainerService.findAll(),
+    };
   }
 
   @Put(':id')
@@ -52,32 +70,15 @@ export class UserController {
     await this.userService.update({
       id,
       firstName: dto.firstName,
+      lastName: dto.lastName,
+      birthday: Number(dto.birthday.replace(/\-/g, '')),
+      height: dto.height,
+      weight: dto.weight,
+      gender: dto.gender,
+      address: dto.address,
+      phone: dto.phone,
+      adminId: dto.adminId,
+      useYn: dto.useYn,
     });
-  }
-
-  @Post('save')
-  @Redirect('/user')
-  async save(
-    @Body('firstName') firstName: string,
-    @Body('lastName') lastName: string,
-    @Body('isActive') isActive: boolean,
-  ) {
-    const userEntity = this.userRepository.create();
-    userEntity.firstName = firstName;
-    userEntity.lastName = lastName;
-    userEntity.isActive = isActive;
-
-    return this.userRepository.save(userEntity);
-  }
-
-  @Delete(':id')
-  @Redirect('/user')
-  async delete(@Param('id') id: number) {
-    return this.userRepository.delete({ id });
-  }
-
-  @Get('relation')
-  async withRelation() {
-    return this.userRepository.find({ relations: ['addressList'] });
   }
 }

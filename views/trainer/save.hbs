@@ -1,23 +1,22 @@
 <div class="max-w-2xl mx-auto bg-white">
-    <div class="flex items-center justify-center p-12">
+    <div class="flex items-center justify-center">
         <!-- Author: FormBold Team -->
         <!-- Learn More: https://formbold.com -->
         <div class="mx-auto w-full max-w-[550px]">
-            <form method="post" action="/user/{{user.id}}?_method=PUT">
+            <form action="/trainer" method="POST">
                 <div class="-mx-3 flex flex-wrap">
                     <div class="w-full px-3 sm:w-1/2">
                         <div class="mb-5">
                             <label
-                                    for="fName"
+                                    for="adminId"
                                     class="mb-3 block text-base font-medium text-[#07074D]"
                             >
-                                성
+                                아이디
                             </label>
                             <input
                                     type="text"
-                                    name="firstName"
-                                    id="fName"
-                                    value="{{ user.firstName }}"
+                                    name="adminId"
+                                    id="adminId"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             />
                         </div>
@@ -25,16 +24,15 @@
                     <div class="w-full px-3 sm:w-1/2">
                         <div class="mb-5">
                             <label
-                                    for="lName"
+                                    for="adminName"
                                     class="mb-3 block text-base font-medium text-[#07074D]"
                             >
                                 이름
                             </label>
                             <input
                                     type="text"
-                                    name="lastName"
-                                    id="lName"
-                                    value="{{ user.lastName }}"
+                                    name="adminName"
+                                    id="adminName"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             />
                         </div>
@@ -44,16 +42,15 @@
                     <div class="w-full px-3 sm:w-1/2">
                         <div class="mb-5">
                             <label
-                                    for="birthday"
+                                    for="joinDate"
                                     class="mb-3 block text-base font-medium text-[#07074D]"
                             >
-                                생일
+                                입사일자
                             </label>
                             <input
                                     type="date"
-                                    name="birthday"
-                                    id="birthday"
-                                    value="{{ user.birthdayToString }}"
+                                    name="joinDate"
+                                    id="joinDate"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             />
                         </div>
@@ -71,7 +68,6 @@
                                     name="phone"
                                     id="phone"
                                     min="0"
-                                    value="{{ user.phone }}"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             />
                         </div>
@@ -91,7 +87,6 @@
                                     name="height"
                                     id="height"
                                     min="0"
-                                    value="{{ user.height }}"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             />
                         </div>
@@ -108,51 +103,11 @@
                                     type="number"
                                     name="weight"
                                     id="weight"
-                                    value="{{ user.weight }}"
                                     min="0"
                                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                             />
                         </div>
                     </div>
-                    <div class="w-full px-3 sm:w-1/2">
-                        <div class="mb-5">
-                            <label
-                                    for="adminId"
-                                    class="mb-3 block text-base font-medium text-[#07074D]"
-                            >
-                                담당 트레이너
-                            </label>
-                            <select
-                                    name="adminId"
-                                    id="adminId"
-                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                            >
-                                <option class="px-3" value="">선택해주세요.</option>
-                                {{#each trainers}}
-                                    <option class="px-3" value="{{ adminId }}"
-                                            {{#ifCond ../user.adminId adminId }}selected{{/ifCond}}
-                                    >
-                                        {{ adminName }}
-                                    </option>
-                                {{/each}}
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="mb-5">
-                    <label
-                            for="address"
-                            class="mb-3 block text-base font-medium text-[#07074D]"
-                    >
-                        주소
-                    </label>
-                    <input
-                            type="text"
-                            name="address"
-                            id="address"
-                            value="{{ user.address }}"
-                            class="w-full appearance-none rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                    />
                 </div>
                 <div class="mb-5">
                     <label class="mb-3 block text-base font-medium text-[#07074D]">
@@ -165,9 +120,6 @@
                                     name="gender"
                                     id="radioButton1"
                                     value="M"
-                                    {{#ifCond user.gender 'M' }}
-                                        checked="checked"
-                                    {{/ifCond}}
                                     class="h-5 w-5"
                             />
                             <label
@@ -183,9 +135,6 @@
                                     name="gender"
                                     id="radioButton2"
                                     value="F"
-                                    {{#ifCond user.gender 'F' }}
-                                        checked="checked"
-                                    {{/ifCond}}
                                     class="h-5 w-5"
                             />
                             <label
@@ -208,9 +157,6 @@
                                     name="useYn"
                                     id="useYn1"
                                     value="Y"
-                                    {{#ifCond user.useYn 'Y' }}
-                                        checked="checked"
-                                    {{/ifCond}}
                                     class="h-5 w-5"
                             />
                             <label
@@ -226,9 +172,6 @@
                                     name="useYn"
                                     id="useYn2"
                                     value="N"
-                                    {{#ifCond user.useYn 'N' }}
-                                        checked="checked"
-                                    {{/ifCond}}
                                     class="h-5 w-5"
                             />
                             <label
